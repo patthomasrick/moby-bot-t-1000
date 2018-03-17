@@ -21,6 +21,7 @@ public class CommandListener {
         CommandListener.addCommand(new HelpCommand());
         CommandListener.addCommand(new YtPlayCommand());
         CommandListener.addCommand(new YtSkipCommand());
+        CommandListener.addCommand(new SourceCommand());
     }
 
     private static void addCommand(Command command) {
