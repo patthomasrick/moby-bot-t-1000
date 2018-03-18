@@ -1,4 +1,4 @@
-/**
+/*
  * Patrick Thomas
  * Moby T-1000
  */
@@ -28,6 +28,7 @@ import java.nio.file.Files;
  */
 public class Moby {
     public static final String CMD_PREFIX = "!";
+    public static final long DEV_CHANNEL_ID = 379447763626360845l;
     public static final AudioPlayer audioPlayer = new AudioPlayer();
 
     /**

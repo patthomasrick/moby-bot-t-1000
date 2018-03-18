@@ -1,0 +1,7 @@
+
+roll choice 1 2 3 4 5 6
+yee ytplay https://www.youtube.com/watch?v=q6EoRBvdVPQ
+shutdown ytplay https://www.youtube.com/watch?v=Q75389kAqiM
+startup ytplay https://www.youtube.com/watch?v=6Joyj0dmkug
+windows ytplay https://www.youtube.com/watch?v=6Joyj0dmkug
+airhorn ytplay https://www.youtube.com/watch?v=HpywUnK-vNQ

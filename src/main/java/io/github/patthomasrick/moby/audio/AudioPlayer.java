@@ -8,11 +8,9 @@ import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import io.github.patthomasrick.moby.Moby;
-import sx.blah.discord.handle.audio.IAudioManager;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IGuild;
-import sx.blah.discord.handle.obj.IVoiceChannel;
 import sx.blah.discord.util.MissingPermissionsException;
 
 import java.util.HashMap;
@@ -106,23 +104,6 @@ public class AudioPlayer {
         musicManager.scheduler.nextTrack();
 
         Moby.sendMessage(channel, "Skipped to next track.");
-    }
-
-    private static void connectToFirstVoiceChannel(IAudioManager audioManager) {
-        for (IVoiceChannel voiceChannel : audioManager.getGuild().getVoiceChannels()) {
-            if (voiceChannel.isConnected()) {
-                return;
-            }
-        }
-
-        for (IVoiceChannel voiceChannel : audioManager.getGuild().getVoiceChannels()) {
-            try {
-                voiceChannel.join();
-            } catch (MissingPermissionsException e) {
-                e.printStackTrace();
-                return;
-            }
-        }
     }
 
     private static void connectToVoiceChannel(MessageReceivedEvent event) {

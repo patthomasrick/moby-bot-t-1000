@@ -4,17 +4,39 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 
 import java.util.List;
 
-public interface Command {
+public class Command implements CommandInterface {
 
-    void runCommand(MessageReceivedEvent event, List<String> args);
+    String[] aliases;
+    String helpStr;
+    String usageStr;
 
-    String[] getAliases();
-
-    default String getHelpStr() {
-        return "Command.";
+    public Command() {
+        aliases = new String[]{"command"};
+        helpStr = "Command.";
+        usageStr = "!command arg1 arg2 ... argn";
     }
 
-    default String getUsageStr() {
-        return "![command] [args]";
+    public void runCommand(MessageReceivedEvent event, List<String> args) {
+        return;
+    }
+
+    @Override
+    public String toString() {
+        return this.getUsageStr();
+    }
+
+    @Override
+    public String[] getAliases() {
+        return this.aliases;
+    }
+
+    @Override
+    public String getHelpStr() {
+        return this.helpStr;
+    }
+
+    @Override
+    public String getUsageStr() {
+        return this.usageStr;
     }
 }

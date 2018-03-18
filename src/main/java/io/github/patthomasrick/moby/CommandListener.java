@@ -19,12 +19,19 @@ public class CommandListener {
         CommandListener.addCommand(new ChoiceCommand());
         CommandListener.addCommand(new HelloCommand());
         CommandListener.addCommand(new HelpCommand());
+        CommandListener.addCommand(new SourceCommand());
         CommandListener.addCommand(new YtPlayCommand());
         CommandListener.addCommand(new YtSkipCommand());
-        CommandListener.addCommand(new SourceCommand());
+
+        CommandListener.addCommand(new AliasCommand()); // HAS TO BE LAST
     }
 
-    private static void addCommand(Command command) {
+    /**
+     * A helper method to more concisely add a command mapping.
+     *
+     * @param command Command object
+     */
+    public static void addCommand(Command command) {
         for (String s : command.getAliases()) {
             CommandListener.commandMap.put(s, command);
         }
@@ -50,6 +57,8 @@ public class CommandListener {
         // run a command
         if (CommandListener.commandMap.containsKey(commandStr)) {
             CommandListener.commandMap.get(commandStr).runCommand(event, argsList);
+        } else {
+            event.getMessage().reply("Not a command.");
         }
     }
 }

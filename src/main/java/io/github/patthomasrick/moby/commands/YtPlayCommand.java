@@ -5,29 +5,16 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 
 import java.util.List;
 
-public class YtPlayCommand implements Command {
+public class YtPlayCommand extends Command {
 
-    private String[] aliases = {"ytplay", "play", "yt"};
-    private String helpStr = "Plays an audio stream from the internet.";
-    private String usageStr = "!ytplay link";
+    public YtPlayCommand() {
+        aliases = new String[]{"ytplay", "play", "yt"};
+        helpStr = "Plays an audio stream from the internet.";
+        usageStr = "!ytplay link";
+    }
 
     @Override
     public void runCommand(MessageReceivedEvent event, List<String> args) {
         AudioPlayer.loadAndPlay(event, args.get(0));
-    }
-
-    @Override
-    public String[] getAliases() {
-        return aliases;
-    }
-
-    @Override
-    public String getHelpStr() {
-        return helpStr;
-    }
-
-    @Override
-    public String getUsageStr() {
-        return usageStr;
     }
 }

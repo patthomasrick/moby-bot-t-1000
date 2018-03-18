@@ -5,29 +5,16 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 
 import java.util.List;
 
-public class HelloCommand implements Command {
+public class HelloCommand extends Command {
 
-    private String[] aliases = {"hello", "hi"};
-    private String helpStr = "Says hello back. Like ping-pong test.";
-    private String usageStr = "!hello";
+    public HelloCommand() {
+        this.aliases = new String[]{"hello", "hi"};
+        this.helpStr = "Says hello back. Like ping-pong test.";
+        this.usageStr = "!hello";
+    }
 
     @Override
     public void runCommand(MessageReceivedEvent event, List<String> args) {
         Moby.sendMessage(event.getChannel(), String.format("Hello %s!", event.getAuthor().mention()));
-    }
-
-    @Override
-    public String[] getAliases() {
-        return aliases;
-    }
-
-    @Override
-    public String getHelpStr() {
-        return helpStr;
-    }
-
-    @Override
-    public String getUsageStr() {
-        return usageStr;
     }
 }

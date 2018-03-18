@@ -5,29 +5,16 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 
 import java.util.List;
 
-public class YtSkipCommand implements Command {
+public class YtSkipCommand extends Command {
 
-    private String[] aliases = {"ytskip", "stop", "skip"};
-    private String helpStr = "Stops/skips the current audio stream.";
-    private String usageStr = "!ytskip";
+    public YtSkipCommand() {
+        aliases = new String[]{"ytskip", "stop", "skip"};
+        helpStr = "Stops/skips the current audio stream.";
+        usageStr = "!ytskip";
+    }
 
     @Override
     public void runCommand(MessageReceivedEvent event, List<String> args) {
         AudioPlayer.skipTrack(event.getChannel());
-    }
-
-    @Override
-    public String[] getAliases() {
-        return aliases;
-    }
-
-    @Override
-    public String getHelpStr() {
-        return helpStr;
-    }
-
-    @Override
-    public String getUsageStr() {
-        return usageStr;
     }
 }
