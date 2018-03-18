@@ -28,8 +28,9 @@ import java.nio.file.Files;
  */
 public class Moby {
     public static final String CMD_PREFIX = "!";
-    public static final long DEV_CHANNEL_ID = 379447763626360845l;
+    public static final long DEV_CHANNEL_ID = 379447763626360845L;
     public static final AudioPlayer audioPlayer = new AudioPlayer();
+    public static IDiscordClient client;
 
     /**
      * Create a Discord client given a bot token. Bot tokens are generated from
@@ -42,7 +43,7 @@ public class Moby {
      *              login the bot at a later time
      * @return client
      */
-    public static IDiscordClient createClient(String token, boolean login) { // Returns a new instance of the Discord client
+    private static IDiscordClient createClient(String token, boolean login) { // Returns a new instance of the Discord client
         ClientBuilder clientBuilder = new ClientBuilder(); // Creates the ClientBuilder instance
         clientBuilder.withToken(token); // Adds the login info to the builder
 
@@ -65,13 +66,12 @@ public class Moby {
      */
     public static void main(String args[]) {
         // create client and dispatcher
-        IDiscordClient client = Moby.createClient(Moby.getToken(), true);
+        client = Moby.createClient(Moby.getToken(), true);
+        assert client != null;
         EventDispatcher dispatcher = client.getDispatcher();
 
         dispatcher.registerListener(new AnnotationListener());
         dispatcher.registerListener(new CommandListener());
-
-        return;
     }
 
     /**

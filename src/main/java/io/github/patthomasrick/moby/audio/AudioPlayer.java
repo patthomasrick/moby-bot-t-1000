@@ -111,7 +111,6 @@ public class AudioPlayer {
             event.getAuthor().getVoiceStateForGuild(event.getGuild()).getChannel().join();
         } catch (MissingPermissionsException e) {
             e.printStackTrace();
-            return;
         }
     }
 }

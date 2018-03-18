@@ -8,6 +8,9 @@ import java.util.*;
 
 public class CommandListener {
 
+    // some precanned responses
+    public static final String REPLY_NOT_ADMIN = "Use must be an admin to use this command.";
+
     // static map of registered commands
     public static Map<String, Command> commandMap;
 
@@ -22,6 +25,9 @@ public class CommandListener {
         CommandListener.addCommand(new SourceCommand());
         CommandListener.addCommand(new YtPlayCommand());
         CommandListener.addCommand(new YtSkipCommand());
+        CommandListener.addCommand(new VoiceJoinCommand());
+        CommandListener.addCommand(new VoiceLeaveCommand());
+        CommandListener.addCommand(new RestartCommand());
 
         CommandListener.addCommand(new AliasCommand()); // HAS TO BE LAST
     }
