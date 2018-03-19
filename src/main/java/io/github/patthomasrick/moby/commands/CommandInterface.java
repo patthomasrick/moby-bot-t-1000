@@ -17,4 +17,6 @@ public interface CommandInterface {
     default String getUsageStr() {
         return "![command] [args]";
     }
+
+    boolean isAliasedCommand();
 }

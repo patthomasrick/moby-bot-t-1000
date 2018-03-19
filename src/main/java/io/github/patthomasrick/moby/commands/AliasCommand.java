@@ -73,7 +73,7 @@ public class AliasCommand extends Command {
                     break;
 
                 case (2):
-                    event.getMessage().reply("This alias would overwrite an existing command or alias.");
+                    event.getMessage().reply("This alias would overwrite an existing command.");
                     break;
 
                 default:
@@ -87,30 +87,33 @@ public class AliasCommand extends Command {
 
     private int addCommand(List<String> args) {
         // check if not already used
-        if (args.size() >= 1 && CommandListener.commandMap.get(args.get(0)) == null) {
-            // valid call
-            // extract names
-            String aliasName = args.get(0);
-            String commandName = args.get(1);
-            Command command = CommandListener.commandMap.get(commandName);
+        if (args.size() >= 1) {
+            if (CommandListener.commandMap.get(args.get(0)) == null || CommandListener.commandMap.get(args.get(0)).isAliasedCommand()) {
+                // valid call
+                // extract names
+                String aliasName = args.get(0);
+                String commandName = args.get(1);
+                Command command = CommandListener.commandMap.get(commandName);
 
-            // extract args
-            List<String> safeArgs = new ArrayList<>(args);
-            safeArgs.remove(0); // remove the name
-            safeArgs.remove(0); // remove the command
+                // extract args
+                List<String> safeArgs = new ArrayList<>(args);
+                safeArgs.remove(0); // remove the name
+                safeArgs.remove(0); // remove the command
 
-            // make command
-            AliasedCommand aCmd = new AliasedCommand(aliasName, command, safeArgs);
-            CommandListener.addCommand(aCmd);
+                // make command
+                AliasedCommand aCmd = new AliasedCommand(aliasName, command, safeArgs);
+                CommandListener.addCommand(aCmd);
 
-            return 0;
+                return 0;
 
-        } else if (args.size() < 1) {
-            return 1;
-        } else if (CommandListener.commandMap.get(args.get(0)) != null) {
-            return 2;
-        } else {
-            return -1;
+            } else if (args.size() < 1) {
+                return 1;
+            } else if (CommandListener.commandMap.get(args.get(0)) != null) {
+                return 2;
+            } else {
+                return -1;
+            }
         }
+        return 2;
     }
 }

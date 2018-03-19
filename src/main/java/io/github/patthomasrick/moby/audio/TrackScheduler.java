@@ -4,6 +4,9 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
+import io.github.patthomasrick.moby.Moby;
+import sx.blah.discord.handle.obj.ActivityType;
+import sx.blah.discord.handle.obj.StatusType;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -47,7 +50,25 @@ public class TrackScheduler extends AudioEventAdapter {
     }
 
     @Override
+    public void onPlayerPause(AudioPlayer player) {
+        // Player was paused
+    }
+
+    @Override
+    public void onPlayerResume(AudioPlayer player) {
+        // Player was resumed
+    }
+
+    @Override
+    public void onTrackStart(AudioPlayer player, AudioTrack track) {
+        Moby.client.changePresence(StatusType.ONLINE, ActivityType.LISTENING, track.getInfo().title);
+    }
+
+    @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
+
+        Moby.client.changePresence(StatusType.ONLINE, ActivityType.WATCHING, "BrainPop.com");
+
         // Only start the next track if the end reason is suitable for it (FINISHED or LOAD_FAILED)
         if (endReason.mayStartNext) {
             nextTrack();

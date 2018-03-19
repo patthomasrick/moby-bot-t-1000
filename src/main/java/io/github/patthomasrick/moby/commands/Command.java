@@ -10,6 +10,8 @@ public class Command implements CommandInterface {
     String helpStr;
     String usageStr;
 
+    boolean isAliasedCommand = false;
+
     public Command() {
         aliases = new String[]{"command"};
         helpStr = "Command.";
@@ -38,5 +40,10 @@ public class Command implements CommandInterface {
     @Override
     public String getUsageStr() {
         return this.usageStr;
+    }
+
+    @Override
+    public boolean isAliasedCommand() {
+        return this.isAliasedCommand;
     }
 }

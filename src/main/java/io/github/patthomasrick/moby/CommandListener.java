@@ -28,6 +28,7 @@ public class CommandListener {
         CommandListener.addCommand(new VoiceJoinCommand());
         CommandListener.addCommand(new VoiceLeaveCommand());
         CommandListener.addCommand(new RestartCommand());
+        CommandListener.addCommand(new SayCommand());
 
         CommandListener.addCommand(new AliasCommand()); // HAS TO BE LAST
     }
@@ -45,26 +46,38 @@ public class CommandListener {
 
     @EventSubscriber
     public void onMessageReceived(MessageReceivedEvent event) {
-        // split message into args
-        String[] argArray = event.getMessage().getContent().split(" ");
 
-        // cannot have 0 args
-        if (argArray.length == 0 || !argArray[0].startsWith(Moby.CMD_PREFIX)) {
-            return;
+        // if the message starts with alias, behave differently
+        String[] cmdArray = {event.getMessage().getContent()};
+        if (!cmdArray[0].startsWith("!alias")) {
+            // split into subcommands
+            cmdArray = event.getMessage().getContent().split("&&");
         }
 
-        // extract command arg (remove prefix)
-        String commandStr = argArray[0].substring(1);
+        for (String cmd : cmdArray) {
+            cmd = cmd.trim();
 
-        // put other args into arraylist
-        List<String> argsList = new ArrayList<>(Arrays.asList(argArray));
-        argsList.remove(0); // remove the cmd
+            // split message into args
+            String[] argArray = cmd.split(" ");
 
-        // run a command
-        if (CommandListener.commandMap.containsKey(commandStr)) {
-            CommandListener.commandMap.get(commandStr).runCommand(event, argsList);
-        } else {
-            event.getMessage().reply("Not a command.");
+            // cannot have 0 args
+            if (argArray.length == 0 || !argArray[0].startsWith(Moby.CMD_PREFIX)) {
+                return;
+            }
+
+            // extract command arg (remove prefix)
+            String commandStr = argArray[0].substring(1);
+
+            // put other args into arraylist
+            List<String> argsList = new ArrayList<>(Arrays.asList(argArray));
+            argsList.remove(0); // remove the cmd
+
+            // run a command
+            if (CommandListener.commandMap.containsKey(commandStr)) {
+                CommandListener.commandMap.get(commandStr).runCommand(event, argsList);
+            } else {
+                event.getMessage().reply(String.format("`%s`: Not a command.", cmd));
+            }
         }
     }
 }

@@ -17,6 +17,8 @@ public class AliasedCommand extends Command {
         this.helpStr = String.format("!%s", command.getAliases()[0]);
         this.usageStr = String.format("!%s", aliasName);
 
+        this.isAliasedCommand = true;
+
         this.parentCommand = command;
         this.parentArgs = args;
 
